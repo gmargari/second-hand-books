@@ -14,4 +14,4 @@ scrapy runspider <spider-name.py>
 ```
 A file `<spider-name.csv>` will be created.
 
-You can then create new [Google Sheet](https://docs.google.com/spreadsheets/u/0/create), `File` -> `Import`, select the .csv, and you're ready to go!
+You can then create new [Google Sheet](https://docs.google.com/spreadsheets/u/0/create), `File` -> `Import` the .csv, and you're ready!
