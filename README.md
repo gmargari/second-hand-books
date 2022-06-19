@@ -2,16 +2,26 @@
 Scrape greek sites for second hand books
 
 # Install
-```
+```bash
 python3 -m venv venv
 source venv/bin/activate 
-pip install scrapy
+pip install scrapy csvtotable
 ```
 
 # Run
+```bash
+scrapy runspider protoporia.py
 ```
-scrapy runspider <spider-name.py>
-```
-A file `<spider-name.csv>` will be created.
+A file `protoporia.csv` will be created.
 
-You can then create new [Google Sheet](https://docs.google.com/spreadsheets/u/0/create), `File` -> `Import` the .csv, and you're ready!
+# Visualize
+
+```bash
+# clean up .csv a bit
+./csvclean.py protoporia.csv protoporia.clean.csv
+
+# convert csv to html
+csvtotable -o protoporia.clean.csv protoporia.html
+
+# open protoporia.html
+```
