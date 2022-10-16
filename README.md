@@ -1,10 +1,10 @@
 # second-hand-books
-Scrape greek sites for second hand books
+Scrape greek sites for second hand books.
 
 # Install
 ```bash
 python3 -m venv venv
-source venv/bin/activate 
+source venv/bin/activate  # Windows: source venv/Scripts/activate
 pip install scrapy csvtotable
 ```
 
