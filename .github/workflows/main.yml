@@ -1,0 +1,70 @@
+# Simple workflow for deploying static content to GitHub Pages
+# Copied from: https://github.com/actions/starter-workflows/blob/main/pages/static.yml
+name: Scrape and upload to Pages
+
+on:
+  schedule:
+    # Run every Monday and Thursday
+    - cron:  '00 12 * * 1,4'
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: write   # write for git-auto-commit-action
+  pages: write
+  id-token: write
+
+# Allow one concurrent deployment
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  # Single deploy job since we're just deploying
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.7
+
+      - name: Install Python modules
+        run: pip install scrapy csvtotable
+
+      - name: Scrape pages to .csv
+        run: |
+          scrapy runspider protoporia.py
+          mv protoporia.csv sample/protoporia.csv
+
+      - name: Clean up .csv
+        run: python ./csvclean.py sample/protoporia.csv sample/protoporia.clean.csv
+
+      - name: Convert .csv to html
+        run: csvtotable -o sample/protoporia.clean.csv sample/index.html
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v1
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v1
+        with:
+          # Directory to upload ('.' for entire repository)
+          path: './sample'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v1
+        
+      - name: Auto-commit any files changed in ./sample folder
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          file_pattern: 'sample/*'
+          commit_message: Commit sample/ changed files
