@@ -32,8 +32,8 @@ outfile = sys.argv[2]
 
 # row: 0: title, 1: author, 2: price, 3: normal_price, 4: url
 row_sort = lambda row: (
-    strclean(row[1].lower()),
     strclean(row[0].lower()),
+    strclean(row[1].lower()),
     row[4].lower(),
 )
 
