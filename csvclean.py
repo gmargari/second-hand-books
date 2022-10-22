@@ -3,6 +3,11 @@
 import csv
 import re
 import sys
+import unicodedata
+
+def strip_accents(s):
+   return ''.join(c for c in unicodedata.normalize('NFD', s)
+                  if unicodedata.category(c) != 'Mn')
 
 if len(sys.argv) != 3:
 	print(f'Syntax: {sys.argv[0]} INFILE.csv OUTFILE.csv')
@@ -12,7 +17,7 @@ infile = sys.argv[1]
 outfile = sys.argv[2]
 
 strclean = lambda s: re.sub(u'(μεταχειρισμένο|μεταχειρισμενο)', '', s, flags=re.IGNORECASE).strip()
-row_sort = lambda row: (row[1].lower(), row[0].lower(), row[4].lower())
+row_sort = lambda row: (strip_accents(row[1].lower()), strip_accents(row[0].lower()), row[4].lower())
 
 reader = csv.reader(open(infile, encoding='utf8'))
 header = next(reader)
