@@ -41,7 +41,7 @@ reader = csv.reader(open(infile, encoding="utf8"))
 header = next(reader)
 unique_rows = set(tuple(x) for x in reader)
 sorted_rows = [
-    (strclean(title), strclean(author), price, normal_price, url)
+    (strclean(title), strclean(author), price, normal_price, f'<a href="{url}">{url}</a>')
     for title, author, price, normal_price, url in sorted(unique_rows, key=row_sort)
 ]
 
