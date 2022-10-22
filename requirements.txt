@@ -1,0 +1,2 @@
+csvtotable==2.1.1
+Scrapy==2.7.0
