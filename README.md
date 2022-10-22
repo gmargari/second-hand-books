@@ -29,3 +29,5 @@ csvtotable -o protoporia.clean.csv protoporia.html
 # Example
 
 https://gmargari.github.io/second-hand-books/
+
+Note: accents are removed, so search without accents in search box.
