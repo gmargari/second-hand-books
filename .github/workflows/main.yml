@@ -65,7 +65,7 @@ jobs:
         uses: actions/deploy-pages@v1
         
       - name: Auto-commit any files changed in ./sample folder
-        uses: stefanzweifel/git-auto-commit-action@v4
+        uses: stefanzweifel/git-auto-commit-action@v5
         with:
           file_pattern: 'sample/*'
           commit_message: 'Auto-commit: update sample/ files'
