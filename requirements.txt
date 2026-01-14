@@ -1,2 +1,2 @@
 csvtotable==2.1.1
-Scrapy==2.11.2
+Scrapy==2.14.1
